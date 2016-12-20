@@ -1,10 +1,7 @@
 #ifndef GRAPHLIST_H
 #define GRAPHLIST_H
 #define MAXNUMOFCITY 20
-typedef struct{
-	int start;
-	int end;
-}shuju;
+#include <queue>
 typedef  struct GraphNode{
 	int info;
 	int dest;
@@ -25,10 +22,11 @@ public:
 	
 	
 private:
-	void DFHelper(shuju& tmp,Edge* proc,int *a);
+	void DFHelper(std::queue<int> &rongyu, Edge* proc, int *status);
 	Adj Head[MAXNUMOFCITY];
 	int realNumofCity;
 	int first[MAXNUMOFCITY];
+	int NumofEdge;
 	
 };
 
