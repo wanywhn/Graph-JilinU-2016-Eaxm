@@ -4,7 +4,7 @@
 #include <time.h>
 #include <vector>
 GraphList::GraphList(int maxcity, int nadj) : realNumofCity(maxcity) {
-  for (int i = 0; i != maxcity; i++) {
+  for (int i = 0; i != maxcity; i++) {//
 	Head[i].Adjcent = nullptr;
 	first[i] = 1;
   }
