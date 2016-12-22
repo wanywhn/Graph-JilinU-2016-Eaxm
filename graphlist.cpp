@@ -3,13 +3,14 @@
 #include <queue>
 #include <time.h>
 #include <vector>
+#include <stddef.h>
 GraphList::GraphList(int maxcity, int nadj) : realNumofCity(maxcity) {
   for (int i = 0; i != maxcity; i++) {
 	Head[i].Adjcent = nullptr;
 	first[i] = 1;
   }
   std::srand((unsigned int)time(NULL));
-  std::vector<std::vector<int>> a(maxcity, std::vector<int>(maxcity));
+  std::vector<std::vector<int> > a(maxcity, std::vector<int>(maxcity));
   for (int i = 0; i != maxcity; i++) { // init
 	for (int j = 0; j != maxcity; j++) {
 	  a[i][j] = 0;
