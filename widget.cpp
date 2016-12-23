@@ -164,3 +164,8 @@ void Widget::on_pushButton_init_clicked()
 {
 	SetOutFlagStat(0);
 }
+
+void Widget::on_pushButton_3_1_clicked()
+{
+	SetOutFlagStat(31);
+}

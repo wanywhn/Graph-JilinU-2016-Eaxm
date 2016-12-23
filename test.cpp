@@ -81,14 +81,14 @@ void GraphList::Abstract() {
     Edge *t;
     while (u != nullptr) {
       RDFS(u->info, visited);
-      if(u->next!=nullptr)
-      {
-      t = u->next->next;
-      if (visited[u->next->info] == 1) {
-        DeleteEdge(i, u->next->info);
-        u = t;
-      } else {
-        u = u->next;
+	  if (u->next != nullptr) {
+		t = u->next->next;
+		if (visited[u->next->info] == 1) {
+		  DeleteEdge(i, u->next->info);
+		  u = t;
+		} else {
+		  u = u->next;
+		}
       }
     }
   }
@@ -107,7 +107,8 @@ void GraphList::DeleteEdge(const int &v1, const int &v2) //删除一条边
 {
   if ((v1 == -1) || (v2 == -1))
     return;
-  if (v1 == v2)  return;
+  if (v1 == v2)
+	return;
   Edge *p = Head[v1].Adjcent;
   while (p != NULL) {
     if (p->info == v2) {
@@ -142,27 +143,27 @@ void GraphList::DeleteEdge(const int &v1, const int &v2) //删除一条边
   }
 }
 
-    int GraphList::GetFirstNeighbor(const int v) {
-      if (v == -1)
-        return -1;
-      Edge *p = Head[v].Adjcent;
-      if (p != NULL)
-        return p->info;
-      else
-        return -1;
-    }
+int GraphList::GetFirstNeighbor(const int v) {
+  if (v == -1)
+	return -1;
+  Edge *p = Head[v].Adjcent;
+  if (p != NULL)
+	return p->info;
+  else
+	return -1;
+}
 
-    int GraphList::GetNextNeighbor(const int v1, const int v2) {
-      if (v1 != -1 && v2 != -1) {
-        Edge *p = Head[v1].Adjcent;
-        while (p->info != v2 && p != NULL)
-          p = p->next;
-        if (p == NULL)
-          return -1;
-        p = p->next;
-        if (p == NULL)
-          return -1;
-        return p->info;
-      }
+int GraphList::GetNextNeighbor(const int v1, const int v2) {
+  if (v1 != -1 && v2 != -1) {
+	Edge *p = Head[v1].Adjcent;
+	while (p->info != v2 && p != NULL)
+	  p = p->next;
+	if (p == NULL)
+	  return -1;
+	p = p->next;
+	if (p == NULL)
       return -1;
-    }
+	return p->info;
+  }
+  return -1;
+}
