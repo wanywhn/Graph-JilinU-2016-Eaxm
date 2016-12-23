@@ -1,6 +1,6 @@
 #include "graphlist.h"
+#include "test.h"
 #include <iostream>
-#include <queue>
 #include <time.h>
 #include <vector>
 
@@ -14,19 +14,21 @@ GraphList::GraphList(int maxcity, int nadj) : realNumofCity(maxcity),NumofEdge(n
   std::srand((unsigned int)time(NULL));
   std::vector<std::vector<int>> a(maxcity, std::vector<int>(maxcity));
   for (int i = 0; i != maxcity; i++) { // init
-	for (int j = 0; j != maxcity; j++) {
-	  a[i][j] = 0;
-	}
+    for (int j = 0; j != maxcity; j++) {
+      a[i][j] = 0;
+    }
   }
 
 #ifndef DEBUG
   for (int i = 0; i != nadj;) { // random get n
+
 	int x = rand() % maxcity;
 	int y = rand() % maxcity;
 	if (a[y][x] == 0 && a[x][y] == 0 && x != y) {
 	  a[x][y] = 1;
 	  i++;
 	}
+
   }
 #endif
 #ifdef DEBUG
@@ -174,5 +176,6 @@ void GraphList::DFHelper(std::queue<int> &rongyu, Edge *proc, int *status) {
 #endif
   } else {
 	return;
+
   }
 }
