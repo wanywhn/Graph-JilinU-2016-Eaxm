@@ -1,11 +1,8 @@
-#include <iostream>
-
-using namespace std;
-
-const int realNumofCity=10;
+#include "widget.h"
+#include <QApplication>
 int main(int argc, char *argv[])
 {
-	cout << "Hello World!" << endl;
-	return 0;
-}
+	QApplication a(argc, argv);
+	Widget w;
+	w.show();
 
