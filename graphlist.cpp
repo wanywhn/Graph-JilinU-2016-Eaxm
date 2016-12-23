@@ -84,6 +84,7 @@ void GraphList::DFS(QList<int> *rongyulist) {
 #ifdef QT_DEBUG
 	std::cout << "rongyu:" << rongyu.front();
 	rongyu.pop();
+
 	std::cout << ',' << rongyu.front() << std::endl;
 	  rongyulist->push_back(rongyu.front());
 #endif
