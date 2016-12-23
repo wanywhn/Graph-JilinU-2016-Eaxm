@@ -31,6 +31,8 @@ private slots:
 
 	void on_pushButton_init_clicked();
 
+	void on_pushButton_3_1_clicked();
+
 private:
 	Ui::Widget *ui;
 	GraphList *graph;

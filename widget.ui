@@ -127,7 +127,7 @@
     <string>&amp;H恢复</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_3_1">
    <property name="geometry">
     <rect>
      <x>770</x>

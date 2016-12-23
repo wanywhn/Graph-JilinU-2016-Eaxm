@@ -21,6 +21,14 @@ void Myelli::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   painter->drawEllipse(-banjin / 2, -banjin / 2, banjin, banjin);
   painter->drawText(-banjin*3/8, 0, QString("城市")+messg);
   for (int i = 0; i != qGIL.size(); i++) { //!!!!!!!!
+	  if(outflag==31){
+		  if(){
+
+		  }else{
+
+		  }
+
+	  }else
 	if ((!rongyu->empty()) &&
 			rongyu->contains(QPoint(
 				this->messg.toInt(),
