@@ -21,6 +21,7 @@ class GraphList
 {
 public:
 	GraphList(int maxcity,int nadj);//m,n
+    void DFS();
     void SetOne();    //jiaru
     void SetTwo();    //jiaru
     void Display();   //jiaru

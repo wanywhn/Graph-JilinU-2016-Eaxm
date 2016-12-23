@@ -1,10 +1,10 @@
 #include "graphlist.h"
-#include "test.h"
+#include "test.cpp"
 #include <iostream>
 #include <time.h>
 #include <vector>
-
-//#define DEBUG
+#include<cstdlib>
+#define DEBUG
 
 GraphList::GraphList(int maxcity, int nadj) : realNumofCity(maxcity),NumofEdge(nadj) {
   for (int i = 0; i != maxcity; i++) {
@@ -12,11 +12,12 @@ GraphList::GraphList(int maxcity, int nadj) : realNumofCity(maxcity),NumofEdge(n
 	first[i] = 1; // Help Vect to List
   }
   std::srand((unsigned int)time(NULL));
-  std::vector<std::vector<int>> a(maxcity, std::vector<int>(maxcity));
+  std::vector<std::vector<int> > a(maxcity, std::vector<int>(maxcity));
   for (int i = 0; i != maxcity; i++) { // init
     for (int j = 0; j != maxcity; j++) {
       a[i][j] = 0;
     }
+
   }
 
 #ifndef DEBUG
@@ -103,7 +104,7 @@ GraphList::GraphList(int maxcity, int nadj) : realNumofCity(maxcity),NumofEdge(n
 }
 
 // Find Cricle
-void GraphList::DFS(GraphList &tmp) {
+void GraphList::DFS() {
 
   int status[realNumofCity]; //-1:being accessed,0:haven't,1:had
   for (int i = 0; i != realNumofCity; i++) {
