@@ -20,18 +20,34 @@ class GraphList
 {
 public:
 	GraphList(int maxcity,int nadj);//m,n
-	void DFS(QList<int>*rongyulist=nullptr);
-	const Adj *GetHead();
+   void DFS(QList<int>*rongyulist=nullptr);
+const Adj *GetHead();
 	void ListToArr(std::vector<std::vector<int>>&a);
-
-
+    void SetOne();    //jiaru
+    void SetTwo();    //jiaru
+    void Display();   //jiaru
+    void Abstract();  //jiaru
+    void RDFS(const int v,int*visited); //jiaru
+    void DeleteEdge(const int &v1,const int &v2);   //jiaru
+    int  GetNextNeighbor(const int v1,const int v2);//jiaru
+    int GetFirstNeighbor(const int v) ;     //jiaru
 private:
+
 	void DFHelper(std::queue<int> &rongyu, Edge* proc, int *status);
 	Adj Head[MAXNUMOFCITY];
 	int realNumofCity;
 	int first[MAXNUMOFCITY];
 	int NumofEdge;
-	void ArrToList(std::vector<std::vector<int>>&a);
+	
+
+
+    int Trans[MAXNUMOFCITY];   //quanbuchushiwei0
+
+    int children[MAXNUMOFCITY];  //quanbuchushiwei0
+    int low[MAXNUMOFCITY];         //quanbuchushiwei0
+void ArrToList(std::vector<std::vector<int>>&a);
+
+
 
 };
 

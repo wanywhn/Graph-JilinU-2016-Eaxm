@@ -1,10 +1,11 @@
-
 #include "graphlist.h"
+#include "test.cpp"
 #include <QDebug>
 #include <iostream>
 #include <queue>
 #include <time.h>
 #include <vector>
+#include<cstdlib>
 
 GraphList::GraphList(int maxcity, int nadj)
 	: realNumofCity(maxcity), NumofEdge(nadj) {
@@ -13,24 +14,27 @@ GraphList::GraphList(int maxcity, int nadj)
 	first[i] = 1; // Help Vect to List
   }
   std::srand((unsigned int)time(NULL));
-  std::vector<std::vector<int>> a(maxcity, std::vector<int>(maxcity));
+  std::vector<std::vector<int> > a(maxcity, std::vector<int>(maxcity));
   for (int i = 0; i != maxcity; i++) { // init
-	for (int j = 0; j != maxcity; j++) {
-	  a[i][j] = 0;
-	}
+    for (int j = 0; j != maxcity; j++) {
+      a[i][j] = 0;
+    }
+
   }
-#undef QT_DEBUG
-#ifndef QT_DEBUG
+
+#ifndef DEBUG
   for (int i = 0; i != nadj;) { // random get n
+
 	int x = rand() % maxcity;
 	int y = rand() % maxcity;
 	if (a[y][x] == 0 && a[x][y] == 0 && x != y) {
 	  a[x][y] = 1;
 	  i++;
 	}
+
   }
 #endif
-#ifdef QT_DEBUG
+#ifdef DEBUG
   a[0][8] = 1;
   a[0][9] = 1;
   a[1][9] = 1;
@@ -74,17 +78,15 @@ void GraphList::DFS(QList<int> *rongyulist) {
 	throw QString("无法构成连通图");
 	return;
   }
-#ifdef QT_DEBUG
-  while (!rongyu.empty()) {
-	std::cout << "rongyu:" << rongyu.front();
-	rongyu.pop();
-	std::cout << ',' << rongyu.front() << std::endl;
-	rongyu.pop();
-  }
-#endif
   if (!rongyu.empty()) {
 	while (!rongyu.empty()) {
 	  rongyulist->push_back(rongyu.front());
+#ifdef QT_DEBUG
+	std::cout << "rongyu:" << rongyu.front();
+	rongyu.pop();
+	std::cout << ',' << rongyu.front() << std::endl;
+	  rongyulist->push_back(rongyu.front());
+#endif
 	  rongyu.pop();
 	}
   }
