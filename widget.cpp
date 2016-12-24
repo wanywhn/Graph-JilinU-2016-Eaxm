@@ -134,7 +134,7 @@ void Widget::DrawGraphQ1() {
   ui->graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 }
 
-void Widget::SetOutFlagStat(int s)
+void Widget::SetOutFlagStat(int s, QList<QPoint> *a)
 {
 
 	QList<Myelli*> ql;
@@ -144,6 +144,7 @@ void Widget::SetOutFlagStat(int s)
 	}
 	for(int i=0;i!=ql.size();i++){
 		ql[i]->setOutFlag(s);
+		ql[i]->SetKeKao(a);
 	}
 	ui->graphicsView->scene()->update();
 	ui->graphicsView->update();
@@ -167,5 +168,18 @@ void Widget::on_pushButton_init_clicked()
 
 void Widget::on_pushButton_3_1_clicked()
 {
-	SetOutFlagStat(31);
+	QList<int>* qli=new QList<int>;
+	QList<QPoint>* qpo=new QList<QPoint>;
+	graph->WhoIsInHuiLu(qli);
+	for(int i=0;qli->size()&&(i!=qli->size()-1);i++){
+		qpo->append(QPoint(qli->at(i),qli->at(i+1)));
+	}
+	if(qpo->size()){
+	SetOutFlagStat(31,qpo);
+		QMessageBox::information(this,tr("不稳定"),tr("不稳定!"));
+	}
+	else{
+		QMessageBox::information(this,tr("稳定"),tr("稳定!"));
+	}
+
 }

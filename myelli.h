@@ -28,7 +28,7 @@ public:
 	void AddQGIL(QGraphicsItem*additem);
 	const QString &GetCity();
 	void setOutFlag(int x=0);
-
+	void SetKeKao(QList<QPoint>*a);
 private:
 	QString messg;
 	//QPointF yuandian;
@@ -36,6 +36,7 @@ private:
 	QColor color;
 	QList<QGraphicsItem*> qGIL;
 	const Adj *head;
+	QList<QPoint>* KeKao;
 	QList<QPoint>* rongyu;
 	int outflag;
 protected:

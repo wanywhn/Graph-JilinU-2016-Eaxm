@@ -38,7 +38,7 @@ private:
 	GraphList *graph;
 	int wcity;int wline;
 	void DrawGraphQ1();
-	void SetOutFlagStat(int s);
+	void SetOutFlagStat(int s,QList<QPoint>* a=nullptr);
 
 };
 

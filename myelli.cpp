@@ -22,9 +22,20 @@ void Myelli::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   painter->drawText(-banjin * 3 / 8, 0, QString("城市") + messg);
   for (int i = 0; i != qGIL.size(); i++) { //!!!!!!!!
 	if (outflag == 31) {
-	  if (1) {
+	  if (KeKao&&(
+				  (KeKao->contains(QPoint(this->messg.toInt(),
+			qgraphicsitem_cast<Myelli *>(qGIL[i])->GetCity().toInt()
+										  )
+								   )
+				   ) ||
+			KeKao->contains(QPoint(qgraphicsitem_cast<Myelli *>(qGIL[i])->GetCity().toInt(), this->messg.toInt())
+							)
+				  )
+		) {
+		  painter->setPen((Qt::green));
 
 	  } else {
+		  painter->setPen(Qt::darkRed);
 	  }
 
 	} else if (((!rongyu->empty()) &&
@@ -40,7 +51,7 @@ void Myelli::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 	} else { // zhicheng
 	  painter->setPen(Qt::SolidLine);
 	  if (outflag == 0 || outflag == 1) {
-		painter->setPen(Qt::darkRed);
+		painter->setPen(Qt::red);
 	  } else if (outflag == 2) {
 		painter->setPen(Qt::white);
 	  }
@@ -60,6 +71,11 @@ const QString &Myelli::GetCity() { return messg; }
 void Myelli::setOutFlag(int x) {
   outflag = x;
   // 0 Normal DisPlay
+}
+
+void Myelli::SetKeKao(QList<QPoint> *a)
+{
+	KeKao=a;
 }
 
 void Myelli::mousePressEvent(QGraphicsSceneMouseEvent *event) {

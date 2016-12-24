@@ -48,7 +48,6 @@ GraphList::GraphList(int maxcity, int nadj)
   a[5][9] = 1;
 #endif
   ArrToList(a);
-  int ccc = 1;
 }
 
 // Find Cricle
@@ -76,12 +75,11 @@ void GraphList::DFS(QList<int> *rongyulist) {
   if (NumofEdge + 1 - rongyu.size() / 2 < realNumofCity) {
 	std::cout << "fei lian tong tu" << std::endl;
 	throw QString("无法构成连通图");
-	return;
   }
   if (!rongyu.empty()) {
 	while (!rongyu.empty()) {
 	  rongyulist->push_back(rongyu.front());
-#ifdef QT_DEBUG
+#ifdef DEBUG
 	std::cout << "rongyu:" << rongyu.front();
 	rongyu.pop();
 
@@ -116,6 +114,7 @@ void GraphList::DFHelper(std::queue<int> &rongyu, Edge *proc, int *status) {
 	}
 
 	if (aque.empty()) {
+		status[proc->info]=1;
 	  std::cout << proc->info << " Has Been Accessed Succefully" << std::endl;
 	  return;
 	} else {
