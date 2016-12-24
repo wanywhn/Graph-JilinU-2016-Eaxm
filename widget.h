@@ -33,12 +33,15 @@ private slots:
 
 	void on_pushButton_3_1_clicked();
 
+	void on_pushButton_2_clicked();
+
 private:
 	Ui::Widget *ui;
 	GraphList *graph;
 	int wcity;int wline;
 	void DrawGraphQ1();
-	void SetOutFlagStat(int s,QList<QPoint>* a=nullptr);
+	void SetOutFlagStat(int s, QList<QPoint>* a=nullptr);
+	void SetOutFlagStat(int s,QList<int>*p);
 
 };
 

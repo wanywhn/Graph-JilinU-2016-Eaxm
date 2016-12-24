@@ -29,6 +29,7 @@ public:
 	const QString &GetCity();
 	void setOutFlag(int x=0);
 	void SetKeKao(QList<QPoint>*a);
+	void SetZengTian(QList<int>* p);
 private:
 	QString messg;
 	//QPointF yuandian;
@@ -39,6 +40,7 @@ private:
 	QList<QPoint>* KeKao;
 	QList<QPoint>* rongyu;
 	int outflag;
+	QList<int>* Zengtian;
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent* event);
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* event);

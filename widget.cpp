@@ -19,8 +19,8 @@
 Widget::Widget(QWidget *parent)
 	: QWidget(parent), ui(new Ui::Widget), graph(nullptr) {
   ui->setupUi(this);
-  ui->lineEdit_city->setValidator(new QIntValidator(2, 99, this));
-  ui->lineEdit_line->setValidator(new QIntValidator(1, 200, this));
+  ui->lineEdit_city->setValidator(new QIntValidator(3, 99, this));
+  ui->lineEdit_line->setValidator(new QIntValidator(2, 200, this));
 }
 
 Widget::~Widget() {
@@ -37,7 +37,12 @@ void Widget::on_pushButton_shengcheng_clicked() {
 	QMessageBox::critical(this, tr("错误！"),
 						  tr("城市联通线必须大于等于城市数减一"));
 	return;
-  } else {
+  } else if(wline>(wcity*wcity+wcity)/2){
+	QMessageBox::critical(this, tr("错误！"),
+						  tr("城市联通线太大了"));
+
+  }
+  else {
 	if (!graph) { // yi jing cun zai
 	  graph = new GraphList(wcity, wline);
 	  if ((graph = new GraphList(wcity, wline)) != nullptr) {
@@ -79,9 +84,6 @@ void Widget::on_lineEdit_line_textChanged(const QString &arg1) {
 void Widget::DrawGraphQ1() {
   //QGraphicsScene *scene = new QGraphicsScene;
 	myScene *scene=new myScene;
-
-
-
   const Adj &head = *graph->GetHead();
   QList<int> rongyu;
   QList<QPoint> &listry=*new QList<QPoint>;
@@ -100,10 +102,8 @@ void Widget::DrawGraphQ1() {
 		listry.append(QPoint(rongyu.at(i),rongyu.at(i+1)));
 	}
 
-
   std::vector<std::vector<int>> arr(wcity, std::vector<int>(wcity));
   graph->ListToArr(arr);
-
 
   qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
   for (int i = wcity - 1; i != -1; i--) {
@@ -134,6 +134,7 @@ void Widget::DrawGraphQ1() {
   ui->graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 }
 
+
 void Widget::SetOutFlagStat(int s, QList<QPoint> *a)
 {
 
@@ -145,6 +146,21 @@ void Widget::SetOutFlagStat(int s, QList<QPoint> *a)
 	for(int i=0;i!=ql.size();i++){
 		ql[i]->setOutFlag(s);
 		ql[i]->SetKeKao(a);
+	}
+	ui->graphicsView->scene()->update();
+	ui->graphicsView->update();
+}
+
+void Widget::SetOutFlagStat(int s, QList<int> *p)
+{
+	QList<Myelli*> ql;
+	for(int i=0;i!=ui->graphicsView->scene()->items().size();i++){
+		QGraphicsItem* qgi=ui->graphicsView->scene()->items().at(i);
+		ql.append(qgraphicsitem_cast<Myelli*>(qgi));
+	}
+	for(int i=0;i!=ql.size();i++){
+		ql[i]->SetZengTian(p);
+		ql[i]->setOutFlag(s);
 	}
 	ui->graphicsView->scene()->update();
 	ui->graphicsView->update();
@@ -175,11 +191,18 @@ void Widget::on_pushButton_3_1_clicked()
 		qpo->append(QPoint(qli->at(i),qli->at(i+1)));
 	}
 	if(qpo->size()){
-	SetOutFlagStat(31,qpo);
+	SetOutFlagStat(21,qpo);
 		QMessageBox::information(this,tr("不稳定"),tr("不稳定!"));
 	}
 	else{
 		QMessageBox::information(this,tr("稳定"),tr("稳定!"));
 	}
 
+}
+
+void Widget::on_pushButton_2_clicked()
+{
+	QList<int> *p=new QList<int>;
+	graph->WhoIsInHuiLu(p,1);
+	SetOutFlagStat(31,p);
 }
