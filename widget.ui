@@ -137,7 +137,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>判断稳定</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
@@ -150,7 +150,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>增添交换机1</string>
    </property>
   </widget>
  </widget>
