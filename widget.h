@@ -5,6 +5,7 @@
 #include "graphlist.h"
 #include "myelli.h"
 #include"myscene.h"
+#include<QFile>
 namespace Ui {
 	class Widget;
 	}

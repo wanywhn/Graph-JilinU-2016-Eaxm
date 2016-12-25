@@ -32,7 +32,6 @@ public:
 	void SetZengTian(QList<int>* p);
 private:
 	QString messg;
-	//QPointF yuandian;
 	qreal banjin;
 	QColor color;
 	QList<QGraphicsItem*> qGIL;

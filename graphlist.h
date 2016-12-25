@@ -5,6 +5,8 @@
 #include <QList>
 #include <QString>
 #include <QQueue>
+#include<QEvent>
+#include<QFile>
 typedef  struct GraphNode{
 	int info;
 	int dest;
@@ -21,10 +23,13 @@ class GraphList
 {
 public:
 	GraphList(int maxcity,int nadj);//m,n
-   void DFS(QList<int>*rongyulist=nullptr);
-    const Adj *GetHead();
+    
+	const Adj *GetHead();
+   
+	void DFS(QList<int>*rongyulist=nullptr);
+	
 	void ListToArr(std::vector<std::vector<int>>&a);
-void ArrToList(std::vector<std::vector<int>>&a);
+    void ArrToList(std::vector<std::vector<int>>&a);
 	void WhoIsInHuiLu(QList<int> *qli,int mode=0);
 	void qiaoDFS(int * id , int u, int *low, int *counter, QList<int> *ql,int mode=0);
 private:

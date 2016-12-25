@@ -23,7 +23,7 @@ GraphList::GraphList(int maxcity, int nadj)
     }
 
 #ifndef DEBUG
-	for (int i = 0; i != nadj;) { // random get n
+	for (int i = 0; i != nadj;) { // random get city
 
 		int x = rand() % maxcity;
 		int y = rand() % maxcity;
@@ -32,6 +32,28 @@ GraphList::GraphList(int maxcity, int nadj)
 			i++;
 		}
 	}
+	QFile file("Origin.dat");
+	const char* cont = "01 ";
+	if (!file.open(QIODevice::Append | QIODevice::Text)) {
+		qDebug() << "Open File Failed";
+		return;
+	}
+	file.write("Q2:");
+	file.write("\n", 1);
+	for (int i = 0; i != maxcity; i++) {
+		for (int j = 0; j != maxcity; j++) {
+			if (a[i][j]||a[j][i]) {
+				file.write(&cont[1], 1);
+				file.write(&cont[2],1);
+			} else {
+				file.write(&cont[0], 1);
+				file.write(&cont[2],1);
+			}
+		}
+		file.write("\n", 1);
+	}
+	file.close();
+
 #endif
 #ifdef DEBUG
 	a[0][8] = 1;
@@ -183,7 +205,6 @@ void GraphList::ArrToList(std::vector<std::vector<int> >& a)
 							proc->pre->next->next = proc;
 							proc->pre = proc->pre->next;
 						}
-					} else {
 					}
 				}
 
@@ -269,7 +290,7 @@ void GraphList::qiaoDFS(int* id, int u, int* low, int* counter, QList<int>* ql, 
 	int children = 0; //记录子节点数目
 	Edge* p = Head[u].Adjcent;
 	if (p == NULL)
-		return ;
+		return;
 	id[u] = low[u] = (*counter)++; //初始化
 	for (; p != NULL; p = p->next) {
 		if (id[p->info] == -1) { // (u,v)为树边
