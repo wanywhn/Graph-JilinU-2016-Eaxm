@@ -1,6 +1,6 @@
 #ifndef GRAPHLIST_H
 #define GRAPHLIST_H
-#define MAXNUMOFCITY 100
+#define MAXNUMOFCITY 200
 #include <queue>
 #include <QList>
 #include <QString>
@@ -23,7 +23,7 @@ class GraphList
 {
 public:
 	GraphList(int maxcity,int nadj);//m,n
-    
+	~GraphList();
 	const Adj *GetHead();
    
 	void DFS(QList<int>*rongyulist=nullptr);
@@ -34,10 +34,10 @@ public:
 	void qiaoDFS(int * id , int u, int *low, int *counter, QList<int> *ql,int mode=0);
 private:
 	void DFHelper(std::queue<int> &rongyu, Edge* proc, int *status);
-	Adj Head[MAXNUMOFCITY];
 	int realNumofCity;
-	int first[MAXNUMOFCITY];
 	int NumofEdge;
+	int first[MAXNUMOFCITY];
+	Adj Head[MAXNUMOFCITY];
 	int low[MAXNUMOFCITY];         //quanbuchushiwei0
 };
 

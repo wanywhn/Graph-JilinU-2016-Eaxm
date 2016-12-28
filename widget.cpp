@@ -24,6 +24,7 @@ Widget::Widget(QWidget* parent)
 	ui->setupUi(this);
 	ui->lineEdit_city->setValidator(new QIntValidator(3, 99, this));
 	ui->lineEdit_line->setValidator(new QIntValidator(2, 200, this));
+	scene = new myScene;
 }
 
 Widget::~Widget()
@@ -31,6 +32,7 @@ Widget::~Widget()
 	delete ui;
 	if (graph)
 		delete graph;
+	delete scene;
 }
 // Sheng cheng an niu
 void Widget::on_pushButton_shengcheng_clicked()
@@ -87,8 +89,7 @@ void Widget::on_lineEdit_line_textChanged(const QString& arg1)
 
 void Widget::DrawGraphQ1()
 {
-	//QGraphicsScene *scene = new QGraphicsScene;
-	myScene* scene = new myScene;
+	scene->clear();
 	const Adj& head = *graph->GetHead();
 	QList<int> rongyu;
 	QList<QPoint>& listry = *new QList<QPoint>;
@@ -105,6 +106,17 @@ void Widget::DrawGraphQ1()
 	for (int i = 0; i != rongyu.size(); i += 2) {
 		listry.append(QPoint(rongyu.at(i), rongyu.at(i + 1)));
 	}
+	//std::vector<std::vector<int> > a(wcity,std::vector<int>(wcity));
+	//for(int i=0;i!=wcity;i++){
+		//for (int j=0;j!=wcity;j++){
+			//a[i][j]=0;
+		//}
+	//}
+	//graph->ListToArr(a);
+
+	std::vector<std::vector<int> > arr(wcity, std::vector<int>(wcity));
+	graph->ListToArr(arr);
+
 	QFile file("Origin.dat");
 	if (!file.open(QIODevice::Append| QIODevice::Text)) {
 		QMessageBox::information(this, tr("Failed"), tr("Open Origin.dat Failed"));
@@ -113,16 +125,9 @@ void Widget::DrawGraphQ1()
 	file.write("Q1:");
 	file.write("\n", 1);
 	const char* cont = "01 ";
-	std::vector<std::vector<int> > a(wcity,std::vector<int>(wcity));
-	for(int i=0;i!=wcity;i++){
-		for (int j=0;j!=wcity;j++){
-			a[i][j]=0;
-		}
-	}
-	graph->ListToArr(a);
 	for (int i = 0; i != wcity; i++) {
 		for (int j = 0; j != wcity; j++) {
-			if (a[i][j]==1&&i!=j&&!listry.contains(QPoint(i, j) )&&!listry.contains((QPoint(j,i)))) {
+			if (arr[i][j]==1&&i!=j&&(listry.contains(QPoint(i, j) )||listry.contains((QPoint(j,i))))) {
 				file.write(&cont[1], 1);
 				file.write(&cont[2], 1);
 			} else {
@@ -133,9 +138,6 @@ void Widget::DrawGraphQ1()
 			file.write("\n", 1);
 	}
 	file.close();
-
-	std::vector<std::vector<int> > arr(wcity, std::vector<int>(wcity));
-	graph->ListToArr(arr);
 
 	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 	for (int i = wcity - 1; i != -1; i--) {
@@ -171,8 +173,8 @@ void Widget::SetOutFlagStat(int s, QList<QPoint>* a)
 
 	QList<Myelli*> ql;
 	for (int i = 0; i != ui->graphicsView->scene()->items().size(); i++) {
-		QGraphicsItem* qgi = ui->graphicsView->scene()->items().at(i);
-		ql.append(qgraphicsitem_cast<Myelli*>(qgi));
+		//QGraphicsItem* qgi = ;
+		ql.append(qgraphicsitem_cast<Myelli*>(ui->graphicsView->scene()->items().at(i)));
 	}
 	for (int i = 0; i != ql.size(); i++) {
 		ql[i]->setOutFlag(s);
@@ -215,7 +217,7 @@ void Widget::on_pushButton_init_clicked()
 void Widget::on_pushButton_3_1_clicked()
 {
 	QList<int>* qli = new QList<int>;
-	QList<QPoint>* qpo = new QList<QPoint>;
+	QList<QPoint>* qpo = new QList<QPoint>;//fang ru dui xiang zhong
 	graph->WhoIsInHuiLu(qli);
 	for (int i = 0; qli->size() && (i != qli->size() - 1); i++) {
 		qpo->append(QPoint(qli->at(i), qli->at(i + 1)));
@@ -226,11 +228,12 @@ void Widget::on_pushButton_3_1_clicked()
 	} else {
 		QMessageBox::information(this, tr("稳定"), tr("稳定!"));
 	}
+	delete  qli;
 }
 
 void Widget::on_pushButton_2_clicked()
 {
-	QList<int>* p = new QList<int>;
+	QList<int>* p = new QList<int>;//cun ru dui xiang
 	graph->WhoIsInHuiLu(p, 1);
 	SetOutFlagStat(31, p);
 }

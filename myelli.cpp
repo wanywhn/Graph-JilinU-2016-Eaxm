@@ -7,8 +7,17 @@ Myelli::Myelli(QString s, const Adj* h, QList<QPoint>* ry)
 	, outflag(0)
 
 {
+	count++;
 	setToolTip(QString("城市") + messg);
 	color = QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+}
+
+Myelli::~Myelli()
+{
+    count--;
+	if(!count){
+	    delete rongyu;
+	}
 }
 
 QRectF Myelli::boundingRect() const

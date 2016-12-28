@@ -39,6 +39,7 @@ private slots:
 private:
 	Ui::Widget *ui;
 	GraphList *graph;
+	myScene *scene;
 	int wcity;int wline;
 	void DrawGraphQ1();
 	void SetOutFlagStat(int s, QList<QPoint>* a=nullptr);

@@ -71,6 +71,28 @@ GraphList::GraphList(int maxcity, int nadj)
 	ArrToList(a);
 }
 
+GraphList::~GraphList()
+{
+	for(int i=0;i!=realNumofCity;i++){
+		Edge *proc=Head[i].Adjcent;
+		if(!proc)
+			continue;
+		if(proc->next==nullptr)
+		{
+		delete proc;
+			continue;
+		}
+		Edge *tmp=proc;
+		proc=proc->next;
+		for(;proc!=nullptr;proc=proc->next){
+			delete tmp;
+			tmp=proc;
+		}
+		delete tmp;
+		Head[i].Adjcent=nullptr;
+	}
+}
+
 // Find Cricle
 void GraphList::DFS(QList<int>* rongyulist)
 {
@@ -270,19 +292,18 @@ void GraphList::ListToArr(std::vector<std::vector<int> >& a)
 
 void GraphList::WhoIsInHuiLu(QList<int>* qli, int mode)
 {
-	int id[2 * realNumofCity];
-	int visited[realNumofCity];
+	int id[2 * realNumofCity];//id[i+realNumofCity] Father
+	int visited=0;
 	for (int i = 0; i != realNumofCity; i++) {
 		low[i] = -1;
-		visited[i] = 0;
 	}
 	for (int i = 0; i != 2 * realNumofCity; i++) {
 		id[i] = -1;
 	}
 	if (mode == 1)
-		qiaoDFS(id, 0, low, visited, qli, 1);
+		qiaoDFS(id, 0, low, &visited, qli, 1);
 	else
-		qiaoDFS(id, 0, low, visited, qli);
+		qiaoDFS(id, 0, low, &visited, qli);
 }
 void GraphList::qiaoDFS(int* id, int u, int* low, int* counter, QList<int>* ql, int mode)
 {
@@ -312,5 +333,5 @@ void GraphList::qiaoDFS(int* id, int u, int* low, int* counter, QList<int>* ql, 
 			}
 		} else if (p->info != id[u + realNumofCity]) // (u,v)为回边
 			low[u] = std::min(low[u], id[p->info]);
-	} // end-for
+	}
 }

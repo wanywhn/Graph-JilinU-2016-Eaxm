@@ -20,6 +20,7 @@ class Myelli:public QGraphicsItem
 public:
 	explicit Myelli(QString s,const Adj *h,QList<QPoint> *ry);
 
+	~Myelli();
 	QRectF boundingRect() const ;
 	void paint(QPainter *painter,
 			   const QStyleOptionGraphicsItem* option,QWidget *widget);
@@ -31,6 +32,7 @@ public:
 	void SetKeKao(QList<QPoint>*a);
 	void SetZengTian(QList<int>* p);
 private:
+	static int count;
 	QString messg;
 	qreal banjin;
 	QColor color;
