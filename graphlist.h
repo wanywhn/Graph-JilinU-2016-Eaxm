@@ -28,8 +28,8 @@ public:
    
 	void DFS(QList<int>*rongyulist=nullptr);
 	
-	void ListToArr(std::vector<std::vector<int>>&a);
-    void ArrToList(std::vector<std::vector<int>>&a);
+	void ListToArr(std::vector<std::vector<int> >&a);
+	void ArrToList(std::vector<std::vector<int> >&a);
 	void WhoIsInHuiLu(QList<int> *qli,int mode=0);
 	void qiaoDFS(int * id , int u, int *low, int *counter, QList<int> *ql,int mode=0);
 private:
