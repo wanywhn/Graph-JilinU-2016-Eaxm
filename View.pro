@@ -33,6 +33,7 @@ SOURCES += main.cpp\
 HEADERS  += widget.h \
     graphlist.h \
     myelli.h \
-    myscene.h
+    myscene.h \
+    type.h
 
 FORMS    += widget.ui
